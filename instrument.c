@@ -185,14 +185,7 @@ void jscoverage_instrument(const char * source,
   }
 
   /* copy the resources */
-  if (jscoverage_mozilla) {
-    char * jscoverage_chrome_directory = make_path(chrome_directory, "jscoverage");
-    mkdirs(jscoverage_chrome_directory);
-    free(jscoverage_chrome_directory);
-  }
-  else {
-    jscoverage_copy_resources(destination);
-  }
+  jscoverage_copy_resources(destination);
 
   /* finally: copy the directory */
   struct DirListEntry * list = make_recursive_dir_list(source);

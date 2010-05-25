@@ -46,6 +46,8 @@ int main(int argc, char ** argv) {
 
   char ** exclude = xnew(char *, argc - 1);
   int num_exclude = 0;
+  
+  jscoverage_highlight = false;
 
   for (int i = 1; i < argc; i++) {
     if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
@@ -57,9 +59,6 @@ int main(int argc, char ** argv) {
     }
     else if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--verbose") == 0) {
       verbose = 1;
-    }
-    else if (strcmp(argv[i], "--no-highlight") == 0) {
-      jscoverage_highlight = false;
     }
     else if (strcmp(argv[i], "--mozilla") == 0) {
       jscoverage_mozilla = true;
