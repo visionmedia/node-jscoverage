@@ -184,9 +184,6 @@ void jscoverage_instrument(const char * source,
     fatal("cannot stat directory: %s", destination);
   }
 
-  /* copy the resources */
-  jscoverage_copy_resources(destination);
-
   /* finally: copy the directory */
   struct DirListEntry * list = make_recursive_dir_list(source);
   for (struct DirListEntry * p = list; p != NULL; p = p->next) {
