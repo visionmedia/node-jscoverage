@@ -186,24 +186,9 @@ void jscoverage_instrument(const char * source,
 
   /* copy the resources */
   if (jscoverage_mozilla) {
-    char * chrome_directory = make_path(destination, "chrome");
     char * jscoverage_chrome_directory = make_path(chrome_directory, "jscoverage");
     mkdirs(jscoverage_chrome_directory);
-    copy_resource("jscoverage.manifest", chrome_directory);
-    copy_resource("jscoverage.html", jscoverage_chrome_directory);
-    copy_resource("jscoverage.css", jscoverage_chrome_directory);
-    copy_resource("jscoverage.js", jscoverage_chrome_directory);
-    copy_resource("jscoverage-throbber.gif", jscoverage_chrome_directory);
-    copy_resource("jscoverage-highlight.css", jscoverage_chrome_directory);
-    copy_resource("jscoverage.xul", jscoverage_chrome_directory);
-    copy_resource("jscoverage-overlay.js", jscoverage_chrome_directory);
     free(jscoverage_chrome_directory);
-    free(chrome_directory);
-
-    char * modules_directory = make_path(destination, "modules");
-    mkdirs(modules_directory);
-    copy_resource("jscoverage.jsm", modules_directory);
-    free(modules_directory);
   }
   else {
     jscoverage_copy_resources(destination);
