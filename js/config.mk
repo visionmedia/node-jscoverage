@@ -103,7 +103,19 @@ else
 ifeq ($(OS_ARCH),Darwin64)
 OS_CONFIG       := Darwin64
 else
+ifeq ($(OS_ARCH),FreeBSD)
+OS_CONFIG       := BSD
+else
+ifeq ($(OS_ARCH),OpenBSD)
+OS_CONFIG       := BSD
+else
+ifeq ($(OS_ARCH),NetBSD)
+OS_CONFIG       := BSD
+else
 OS_CONFIG       := $(OS_ARCH)$(OS_OBJTYPE)$(OS_RELEASE)
+endif
+endif
+endif
 endif
 endif
 endif
