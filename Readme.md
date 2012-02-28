@@ -4,5 +4,8 @@
 
 ## Installation
 
-    $ ./configure && make && make install
+      $ ./configure && make && make install
 
+  or
+
+     $ npm install -g jscoverage
