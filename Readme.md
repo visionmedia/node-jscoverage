@@ -4,7 +4,7 @@
 
 ## Installation
 
-    $ ./configure && make install
+    $ ./configure && make && make install
 
   or
 
