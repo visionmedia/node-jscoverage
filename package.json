@@ -1,0 +1,20 @@
+{
+  "name": "visionmedia-jscoverage",
+  "version": "1.0.0",
+  "author": "visionmedia",
+  "contributors": [
+  ],
+  "homepage": "https://github.com/visionmedia/node-jscoverage",
+  "description": "JSCoverage for node",
+  "keywords": [ "jscoverage" ],
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">=0.6.9"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "make test"
+  }
+}
