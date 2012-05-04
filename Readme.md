@@ -6,6 +6,5 @@
 
     $ ./configure && make install
 
-  or
-
-    $ npm install -g jscoverage
+  Warning: the `jscoverage` npm module published
+  by someone else does _not_ work, clone this repo.
