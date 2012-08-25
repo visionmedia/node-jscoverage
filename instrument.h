@@ -27,6 +27,6 @@ void jscoverage_instrument(const char * source,
                            int num_exclude,
                            char ** no_instrument,
                            int num_no_instrument,
-                           const char * path);
+                           char * path);
 
 #endif /* INSTRUMENT_H_ */

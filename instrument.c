@@ -216,9 +216,16 @@ void jscoverage_instrument(const char * source,
       free(ni);
     }
 
-    int length = strlen(path) + strlen(p->name) + 1;
+    /** make sure the path does not end in a slash. **/
+    size_t length;
+    while (string_ends_with(path, "/")) {
+        length = strlen(path);
+        path[length-1] = '\0';
+    }
+
+    length = strlen(path) + strlen(p->name) + 1;
     char * filepath = malloc(length);
-    sprintf(filepath, "%s/%s", path, p->name);
+    snprintf(filepath, length, "%s/%s", path, p->name);
     instrument_file(s, d, p->name, instrument_this, filepath);
 
   cleanup:

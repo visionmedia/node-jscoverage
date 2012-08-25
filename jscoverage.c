@@ -126,7 +126,8 @@ int main(int argc, char ** argv) {
     fatal_command_line("missing argument");
   }
 
-  char * path = strdup(source);
+  char * path;
+  path = strdup(source);
   source = make_canonical_path(source);
   destination = make_canonical_path(destination);
 
