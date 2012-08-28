@@ -223,7 +223,7 @@ void jscoverage_instrument(const char * source,
         path[length-1] = '\0';
     }
 
-    length = strlen(path) + strlen(p->name) + 1;
+    length = strlen(path) + strlen(p->name) + 2;
     char * filepath = malloc(length);
     snprintf(filepath, length, "%s/%s", path, p->name);
     instrument_file(s, d, p->name, instrument_this, filepath);
