@@ -1,3 +1,7 @@
+
+This is __really__ old, don't use it anymore, here just for legacy reasons.
+
+
 # node-jscoverage
 
    [JScoverage](http://siliconforks.com/jscoverage/) for node.
