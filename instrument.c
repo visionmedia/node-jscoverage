@@ -70,7 +70,7 @@ static void check_contains_file(const char * file1, const char * file2) {
   }
 }
 
-static void instrument_file(const char * source_file, const char * destination_file, const char * id, int instrumenting) {
+static void instrument_file(const char * source_file, const char * destination_file, const char * id, int instrumenting, char * filepath) {
   if (g_verbose) {
     printf("Instrumenting file %s\n", id);
   }
@@ -108,7 +108,7 @@ static void instrument_file(const char * source_file, const char * destination_f
         else if (result == JSCOVERAGE_ERROR_INVALID_BYTE_SEQUENCE) {
           fatal("error decoding %s in file %s", jscoverage_encoding, id);
         }
-        jscoverage_instrument_js(id, characters, num_characters, output_stream);
+        jscoverage_instrument_js(filepath, characters, num_characters, output_stream);
         free(characters);
 
         if (fwrite(output_stream->data, 1, output_stream->length, output) != output_stream->length) {
@@ -135,7 +135,8 @@ void jscoverage_instrument(const char * source,
                            char ** exclude,
                            int num_exclude,
                            char ** no_instrument,
-                           int num_no_instrument)
+                           int num_no_instrument,
+                           char * path)
 {
   assert(source != NULL);
   assert(destination != NULL);
@@ -215,9 +216,20 @@ void jscoverage_instrument(const char * source,
       free(ni);
     }
 
-    instrument_file(s, d, p->name, instrument_this);
+    /** make sure the path does not end in a slash. **/
+    size_t length;
+    while (string_ends_with(path, "/")) {
+        length = strlen(path);
+        path[length-1] = '\0';
+    }
+
+    length = strlen(path) + strlen(p->name) + 2;
+    char * filepath = malloc(length);
+    snprintf(filepath, length, "%s/%s", path, p->name);
+    instrument_file(s, d, p->name, instrument_this, filepath);
 
   cleanup:
+    free(filepath);
     free(s);
     free(d);
   }

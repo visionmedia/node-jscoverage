@@ -126,17 +126,20 @@ int main(int argc, char ** argv) {
     fatal_command_line("missing argument");
   }
 
+  char * path;
+  path = strdup(source);
   source = make_canonical_path(source);
   destination = make_canonical_path(destination);
 
   jscoverage_init();
-  jscoverage_instrument(source, destination, verbose, exclude, num_exclude, no_instrument, num_no_instrument);
+  jscoverage_instrument(source, destination, verbose, exclude, num_exclude, no_instrument, num_no_instrument, path);
   jscoverage_cleanup();
 
   free(source);
   free(destination);
   free(exclude);
   free(no_instrument);
+  free(path);
 
   exit(EXIT_SUCCESS);
 }
