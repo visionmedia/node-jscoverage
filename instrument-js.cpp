@@ -438,7 +438,7 @@ static void instrument_function(JSParseNode * node, Stream * f, int indent, enum
   Stream_write_char(f, '}');
 }
 
-static void instrument_function_call(JSParseNode * node, Stream * f) {
+static void instrument_function_call(JSParseNode * node, Stream * f, bool parenthesize_for_new) {
   JSParseNode * function_node = node->pn_head;
   if (function_node->pn_type == TOK_FUNCTION) {
     JSObject * object = function_node->pn_funpob->object;
@@ -455,7 +455,14 @@ static void instrument_function_call(JSParseNode * node, Stream * f) {
       return;
     }
   }
+  bool parenthesize_callee = parenthesize_for_new && (function_node->pn_type == TOK_LP); // e.g. new (require('foo'))()
+  if (parenthesize_callee) {
+    Stream_write_char(f, '(');
+  }
   output_expression(function_node, f, false);
+  if (parenthesize_callee) {
+    Stream_write_char(f, ')');
+  }
   Stream_write_char(f, '(');
   for (struct JSParseNode * p = function_node->pn_next; p != NULL; p = p->pn_next) {
     if (p != node->pn_head->pn_next) {
@@ -636,7 +643,7 @@ static void output_expression(JSParseNode * node, Stream * f, bool parenthesize_
     break;
   case TOK_NEW:
     Stream_write_string(f, "new ");
-    instrument_function_call(node, f);
+    instrument_function_call(node, f, true);
     break;
   case TOK_DELETE:
     Stream_write_string(f, "delete ");
@@ -693,7 +700,7 @@ static void output_expression(JSParseNode * node, Stream * f, bool parenthesize_
     Stream_write_char(f, ']');
     break;
   case TOK_LP:
-    instrument_function_call(node, f);
+    instrument_function_call(node, f, false);
     break;
   case TOK_RB:
     Stream_write_char(f, '[');
